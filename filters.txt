@@ -1,0 +1,217 @@
+univ : {"publisher":"---"}
+year : {"from": 1995, "to": 2024}
+
+  "filters": {
+    "all": [
+      {
+        "all": [
+          {
+            "publication_date": {
+              "from": 1995,
+              "to": 2024
+            }
+          }
+        ]
+      },
+      {
+        "any": [
+          {
+            "type": "Mémoire de Master"
+          }
+        ]
+      }
+    ]
+  },
+
+
+------------------------------------------------------
+
+{
+  "all": [
+    {
+      "all": [
+        {
+          "publication_date": {
+            "from": 1995,
+            "to": 2024
+          }
+        }
+      ]
+    },
+    {
+      "any": [
+        {
+          "type": "Mémoire de Master"
+        },
+        {
+          "type": "Thèse de Doctorat"
+        }
+      ]
+    }
+  ]
+}
+
+---------------------------------------------------------
+{
+  "all": [
+    {
+      "all": [
+        {
+          "publication_date": {
+            "from": 1995,
+            "to": 2024
+          }
+        }
+      ]
+    },
+    {
+      "any": []
+    },
+    {
+      "any": [
+        {
+          "publisher": "Université Saad Dahleb - Blida"
+        },
+        {
+          "publisher": "Université Abou Bekr Belkaid - Tlemcen"
+        }
+      ]
+    }
+  ]
+}
+-------------------------------------------------------------------------------
+{
+  "all": [
+    {
+      "all": [
+        {
+          "publication_date": {
+            "from": 1995,
+            "to": 2024
+          }
+        }
+      ]
+    },
+    {
+      "any": [
+        {
+          "type": "Mémoire de Master"
+        },
+        {
+          "type": "Thèse de Doctorat"
+        }
+      ]
+    },
+    {
+      "any": [
+        {
+          "publisher": "Université Saad Dahleb - Blida"
+        },
+        {
+          "publisher": "Université Abou Bekr Belkaid - Tlemcen"
+        }
+      ]
+    },
+    {
+      "any": [
+        {
+          "language": "fr"
+        },
+        {
+          "language": "en"
+        },
+        {
+          "language": "es"
+        }
+      ]
+    }
+  ]
+}
+
+--------------------------------------------------------------------
+{
+  "all": [
+    {
+      "any": [
+        {
+          "type": "Mémoire de Master"
+        },
+        {
+          "type": "Thèse de Doctorat"
+        }
+      ]
+    },
+    {
+      "any": []
+    },
+    {
+      "any": [
+        {
+          "language": "fr"
+        },
+        {
+          "language": "en"
+        },
+        {
+          "language": "es"
+        }
+      ]
+    },
+    {
+      "all": [
+        {
+          "publication_date": {
+            "from": 1940,
+            "to": 2024
+          }
+        }
+      ]
+    },
+    {
+      "any": [
+        {
+          "keywords": "argile pontée"
+        },
+        {
+          "keywords": "argile modifié"
+        }
+      ]
+    },
+    {
+      "any": [
+        {
+          "field": "Génie Des Procédés"
+        },
+        {
+          "field": "Biotechnologie"
+        },
+        {
+          "field": "Non Identifié"
+        }
+      ]
+    },
+    {
+      "any": [
+        {
+          "authors": "Hadjimi, Leila"
+        }
+      ]
+    }
+  ]
+}
+
+----------------------------------------------
+{
+  "all": [
+    {
+      "any": [
+        {
+          "authors": "Achour, Samia"
+        },
+        {
+          "authors": "Benkhodja-Graba, Zahra"
+        }
+      ]
+    }
+  ]
+}

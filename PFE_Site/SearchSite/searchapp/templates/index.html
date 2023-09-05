@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+ <link rel="stylesheet" href="{% static 'css/Style.css' %}">
+ <style>
+    .btn {
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: #ffffff;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        outline: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .hot-pink {
+    color: hotpink; /* Set the color for hot pink */
+  }
+ </style>
+{% endblock head %}
+{% block title %}Recherche | AURC{% endblock title %}
+{% block content %}
+
+<div class="main-container">
+    <h1 class="display-6 text-center" style="position: absolute;top: 5%;">
+        <span class="text-uppercase text-primary">A</span>lgerian
+        <span class="text-uppercase text-primary">U</span>niversity
+        <span class="text-uppercase text-primary">R</span>epositories
+        <span class="text-uppercase text-primary">C</span>enter
+    </h1>
+    <div class="d-flex justify-content-center mb-1" style="position: absolute;top: 15%;">
+        <img class="rounded-5" src="{% static 'img/logo.png' %}" width="150" height="150">
+    </div>
+ <div class="search-bar">
+    <form method="post">
+        <input type="text" class="search-input" name="query" placeholder="Rechercher un document ...">
+        <input type="text"  name="current" value="1" hidden>   
+        <button class="btn" type="submit">Rechercher</button>
+    </form>
+</div>
+</div>
+
+<!-- <div class="container mt-5 ">
+    <h1 class="display-5 text-center">
+        <span class="text-uppercase hot-pink">A</span>lgerian
+        <span class="text-uppercase hot-pink">U</span>niversity
+        <span class="text-uppercase hot-pink">R</span>epositories
+        <span class="text-uppercase hot-pink">C</span>enter
+    </h1>
+    <div class="d-flex justify-content-center mb-1">
+        <img class="rounded-5" src="{% static 'img/logo.png' %}" width="150" height="150">
+    </div>
+        <form method="post" class="d-flex justify-content-center">
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control border-0 btn-outline-light" name="query" placeholder="Rechercher un document ...">
+                </div>
+            <input type="text"  name="current" value="1" hidden>
+            <div class="col-auto">
+                <button class="btn btn-primary" type="submit">Rechercher</button>
+            </div> 
+            </div>
+        </form>
+</div> -->
+
+
+{% endblock content %}

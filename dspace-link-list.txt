@@ -1,0 +1,39 @@
+http://dspace.univ-eloued.dz/ ---- 
+http://archives.univ-biskra.dz/ ---
+http://thesis.univ-biskra.dz/ ****
+http://dspace.univ-setif.dz:8888/jspui/ *****
+https://repository.usthb.dz/
+http://dspace.univ-msila.dz:8080/xmlui/ ****
+http://193.194.83.152:8080/xmlui/
+http://dspace.univ-tlemcen.dz/ --------
+http://depot.umc.edu.dz/
+http://dlibrary.univ-boumerdes.dz:8080/jspui
+http://dspace.univ-chlef.dz:8080/jspui/
+http://biblio.univ-alger.dz/jspui/
+http://dspace.univ-bouira.dz:8080/jspui/
+http://dspace.univ-constantine2.dz/
+http://e-biblio.univ-mosta.dz/ *****
+
+------------------
+https://static.vecteezy.com/system/resources/previews/020/329/127/mp4/animated-abstract-pattern-with-geometric-elements-in-white-gray-tones-gradient-background-free-video.mp4
+
+
+
+
+----------------------------------------------------
+
+request 
+	-- send
+	-- filters 
+	-- advanced
+response 
+	-- format.
+	-- size and pages.
+developpement
+	-- front
+		-- searching box, advanced, options..etc
+	-- back
+		-- routes
+		-- pages and results 
+
+	

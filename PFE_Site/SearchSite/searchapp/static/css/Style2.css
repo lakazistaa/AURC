@@ -1,0 +1,93 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.article-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.article-link:hover .article-box {
+    background-color: #f3f3f3;
+}
+
+
+.sidebar {
+    background-color: #2c3e50;
+    color: white;
+    width: 20%;
+    height: 100vh;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+}
+
+.content {
+    width: 80%;
+    padding: 20px;
+}
+
+.article-box {
+    background-color: #ecf0f1;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.article-box h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.meta-info {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.author {
+    background-color: #3498db;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.highlight {
+    background-color: #ffeb3b;
+    padding: 2px 5px;
+}
+
+.article-box p {
+    max-height: 4.5em; /* Or adjust to control the number of lines you want. */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Number of lines to show before truncating. Adjust as needed. */
+    -webkit-box-orient: vertical;
+}
+
+
+.close-button {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: #e74c3c; /* Couleur de fond rouge */
+    color: #fff; /* Couleur de l'icône blanche */
+    text-align: center;
+    line-height: 30px; /* Centrer verticalement l'icône */
+    border: none;
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 20px; /* Taille de l'icône */
+    cursor: pointer; /* Change le curseur en main au survol */
+    outline: none; /* Enlève le contour bleu lorsqu'on clique sur le bouton */
+    transition: background-color 0.3s ease; /* Animation pour le survol */
+}
+
+.close-button:hover {
+    background-color: #c0392b; /* Couleur de fond un peu plus foncée au survol */
+}

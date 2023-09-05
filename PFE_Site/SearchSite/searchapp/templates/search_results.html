@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters%}
+{% block title %}Resultats | AURC{% endblock title %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/Style.css' %}">
+{% endblock head %}
+{% block content %}
+<div class="row mt-2">
+    <div class="col">
+        <form id="search_form" method="post">
+            <div class="row">
+                <div class="col-10">
+                    <input type="text" class="form-control rounded-5 px-3" name="query" id="query" value="{{ query}}">
+                </div>
+                <input type="text" id="current" name="current" value="1" hidden>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary rounded-2">Rechercher</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-outline-info ">Filtrer les résultats</button>
+    </div>
+</div>
+<div class="mt-1 px-3">
+    <small><span style="color: blue;">{{meta.page.total_results}}</span> résultats trouvés.</small>
+</div>
+<!-- <ul class="list-unstyled mt-2">
+    {% for result in results %}
+        <ul class="list-unstyled">
+            <h4>{{ result.title.snippet |safe}}</h4>
+            <p>Field: {{ result.field.raw |safe}}</p>
+            <p>Keywords: {{ result.keywords.raw|join:", " |safe}}</p>
+            <p>Publication Date: {{ result.publication_date.raw |safe}}</p>
+            <p>Abstract: {{ result.abstract.snippet |safe}}</p>
+            <p>Publisher: {{ result.publisher.raw |safe}}</p>
+            <p>Authors : {{result.authors.raw}}
+            <p><a href="{{ result.url.raw }}" target="_blank">Read more</a></p>
+            <hr>
+        </ul>
+    {% endfor %}
+</ul> -->
+<ul class="list-unstyled mt-2">
+    {% for result in results %}
+        <li class="list-unstyled mb-2" style="direction: rtl;">
+            <h3>{{ result.title.snippet |safe}}</h3>
+            <div class="row">
+                <div class="col text-success"><h5 class="fw-bold">{{ result.publication_date.raw |extract_year}}</h5></div>
+                <div class="col mx-2 text-primary"><h6 class="fw-bold">{{ result.publisher.raw |safe}}</h6></div>
+                <div class="col mx-2 text-warning"><h6 class="fw-bold">{{ result.field.raw |safe}}</h6></div>
+            </div>
+            {% if result.language.raw == "ar" %}
+            <div style="direction: rtl;">
+                <p><h>Résumé</span> : {{ result.abstract.snippet|safe}}</p>
+            </div>
+            {%else%}
+            <p><h>Résumé</span> : {{ result.abstract.snippet|safe}}</p>
+            {% endif %}
+            
+            
+            <div class="text-end">
+                <button class="btn btn-outline-success">Plus de détails</button>
+            </div>
+        </li>
+        </li>
+    {% endfor %}
+</ul>
+
+<!-- pagination -->
+<nav aria-label="Page navigation " class="d-flex justify-content-center">
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link btn" id="previous" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                Page précédente
+            </a>
+        </li>
+        <li class="page-item">
+            <p class="p-2 text-muted">
+                {{ meta.page.current}} / {{meta.page.total_pages}}
+            </p>
+        </li>
+        <li class="page-item">
+            <a class="page-link btn"  id="next" aria-label="Next">
+                Page suivante
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+
+        <li class="page-item mx-2">
+            <input type="text" class="form-control" id="pageInput" placeholder="Page Number">
+        </li>
+        <li class="page-item">
+            <button class="btn btn-warning" id="go">Aller</button>
+        </li>   
+    </ul>
+</nav>
+{% endblock content %}
+
+{% block scripts %}
+  <script>
+    $(document).ready(function () {
+    // Function to handle form submission with a specific page number
+    function submitFormWithPageNumber(pageNumber) {
+        $('#current').val(pageNumber); // Set the 'current' input value
+        $('#search_form').submit(); // Submit the form
+    }
+
+    // Previous button click event
+    $('#previous').click(function (e) {
+        e.preventDefault();
+        const currentPage = parseInt('{{ meta.page.current }}');
+        if (currentPage > 1) {
+            submitFormWithPageNumber(currentPage - 1);
+        }
+    });
+
+    // Next button click event
+    $('#next').click(function (e) {
+        e.preventDefault();
+        const currentPage = parseInt('{{ meta.page.current }}');
+        const totalPages = parseInt('{{ meta.page.total_pages }}');
+        if (currentPage < totalPages) {
+            submitFormWithPageNumber(currentPage + 1);
+        }
+    });
+
+    // Go button click event
+    $('#go').click(function (e) {
+        e.preventDefault();
+        const pageNumberInput = $('#pageInput').val();
+        const totalPages = parseInt('{{ meta.page.total_pages }}');
+        const pageNumber = parseInt(pageNumberInput);
+
+        if (pageNumber > 0 && pageNumber <= totalPages) {
+            submitFormWithPageNumber(pageNumber);
+        }
+    });
+  });
+  </script>
+{% endblock scripts %}
