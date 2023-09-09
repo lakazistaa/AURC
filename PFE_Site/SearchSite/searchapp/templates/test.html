@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/Style.css' %}">
+<link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+    .modal_span{
+        color:#FB8500;
+    }
+    .modal_title{
+        color:#8ECAE6;
+       
+    }
+    .modal_container {
+        background-color: #FB8500;
+    }
+</style>
+{% endblock head %}
+{% block content %}
+
+<h1>Search Results</h1>
+    <p>Search Fields: {{ search_fields }}</p>
+    <p>Depots/Universite: {{ depots_universite }}</p>
+    <p>Specialite: {{ specialite }}</p>
+    <p>Type: {{ type }}</p>
+    <p>Langue: {{ langue }}</p>
+    <p>From Year: {{ from_year }}</p>
+    <p>To Year: {{ to_year }}</p>
+    <p>Authors: {{ authors_list }}</p>
+    <p>Keywords: {{ keywords_list }}</p>
+
+{%endblock content %}
+
+{% block scripts %}
+<script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+  
+{% endblock scripts %}

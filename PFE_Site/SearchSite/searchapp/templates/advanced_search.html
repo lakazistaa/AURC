@@ -1,0 +1,351 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link href="{% static 'css/select2.min.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'css/nouislider.css' %}">
+<style>
+    .select2-selection__choice {
+    background-color: #E0E0E0; /* Change the background color */
+    color: #333; /* Change the font color */
+    font-size: 15px; /* Change the font size */
+}
+
+.noUi-connect {
+    background: #FFB703; /* Replace with your desired connection color */
+}
+</style>
+
+{% endblock head %}
+
+{% block video %}
+<source src="{% static 'img/background_video.mp4' %}" type="video/mp4">
+Your browser does not support the video tag.
+{% endblock video %}
+
+{% block content %}
+<div class="container mt-3">
+    <h3 class="text-center text-primary">Recherche avancée</h3>
+    <form method="post" class="offset-2" action="{% url 'advanced_search_view' %}">
+        <p class="text-muted">Trouvez des résultats avec :</p>
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2" for="title" >Titre :</label>
+            <div class="col-sm-7">
+                <input class="form-control " type="text" name="title" id="title">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2" for="authors" title="S'il y a plusieurs, séparez-les par des points virgules ( ; ) ">Auteur(s) :</label>
+            <div class="col-sm-7">
+                <input class="form-control" type="text" name="authors" id="authors">
+            </div>
+        </div>
+
+        
+        <!-- Dépots/Université -->
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2">Dépots/Université :</label>
+            <div class="col-sm-7">
+                <select class="form-select" multiple name="depots_universite[]" id="depots_universite">
+                </select>
+            </div>
+        </div>
+        <!-- Spécialité -->
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2">Spécialité :</label>
+            <div class="col-sm-7">
+                <select class="form-select" multiple name="specialite[]" id="specialite">
+                </select>
+            </div>
+        </div>
+        <!-- Année -->
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2">Année :</label>
+            <div class="col-sm-2">
+                <input class="form-control" type="text" id="from" name="from" placeholder="De">
+            </div>
+            <div class="col-sm-2">
+                <input class="form-control" type="text" id="to"name="to" placeholder="À">
+            </div>
+            <div class="col-sm-3 text-primary py-2 px-4">
+                <div id="yearSlider"></div>
+            </div>
+        </div>
+        
+        <!-- Type -->
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2">Type :</label>
+            <div class="col-sm-7">
+                <select class="form-select" multiple name="type[]" id="type">
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2" for="keywords" >Mots-clés :</label>
+            <div class="col-sm-7">
+                <input class="form-control" type="text" name="keywords" id="keywords">
+            </div>
+        </div>
+        <!-- Langue (multiselect) -->
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2" for="langue">Langue :</label>
+            <div class="col-sm-7">
+                <select class="form-select" multiple name="langue[]" id="langue">
+                </select>
+            </div>
+        </div>
+        <!-- Submit button -->
+        <div class="row">
+            <div class="col-sm-8 offset-sm-1 text-center"> <!-- Center the search button -->
+                <button type="submit" class="btn btn btn-primary">Rechercher</button>
+            </div>
+        </div>
+        
+    </form>
+</div>
+        
+
+{% endblock content %}
+
+
+
+{% block scripts %}
+<script src="{% static 'js/select2.min.js' %}"></script>
+<script src="{% static 'js/nouislider.min.js' %}"></script>
+<script>
+var universities = [
+    { id: '1', text: 'Université de Hamma Lakhdar - Eloued' },
+    { id: '2', text: 'Université de Mohamed Khider - Biskra' },
+    { id: '3', text: 'Université de Abdelhamid Ibn Badis - Mostaganem' },
+    { id: '4', text: 'Université de Abou Bekr Belkaid - Tlemcen' },
+    { id: '5', text: 'Université de Mohamed Boudiaf - M\'sila' },
+    { id: '6', text: 'Université de Frères Mentouri - Constantine 1' },
+    { id: '7', text: 'Université de M\'Hamed Bougara - Boumerdes' },
+    { id: '8', text: 'Université de des Sciences et de la Technologie Houari-Boumédièn - Alger' },
+    { id: '9', text: 'Université de Hassiba Ben Bouali - Chlef' },
+    { id: '10', text: 'Université de Benyoucef Benkhedda - Alger 1' },
+    { id: '11', text: 'Université de Akli Mohand Oulhadj - Bouira' },
+    { id: '12', text: 'Université de Abdelhamid Mehri - Constantine 2' },
+    { id: '13', text: 'Université de Ferhat Abbas - Sétif 1' },
+    { id: '14', text: 'Université de Abou EL Kacem Saâdallah - Alger 2' }
+];
+
+
+  var typee = [
+    "Articles Scientifiques Et Publications",
+    "Mémoire de Master",
+    "Thèse de Doctorat",
+    "Mémoire de Magister",
+    "Autre",
+    "Mémoire de Licence",
+    "Non identifié",
+    "Rapport de Stage Médical",
+    "Mémoire de Fin d'Étude",
+    "Mémoire d'Ingéniorat",
+    "Article"
+]
+
+var field = [
+    "Autre",
+    "Non Identifié",
+    "Langue Et Littérature Arabe",
+    "Sciences Administratives, Économie, Commerce Et Gestion",
+    "Psychologie Et Sciences De L’Éducation Et De L’Orthophonie",
+    "Histoire Et Arts",
+    "Droit Et Sciences Politiques",
+    "Biologie Et Sciences De La Nature Et De La Vie",
+    "Sciences Humaines Et Sociales, Démographie",
+    "Physique",
+    "Informatique",
+    "Génie Électrique Et Électronique",
+    "Sciences Et Technologie",
+    "Chimie",
+    "Sciences Et Techniques Des Activités Physiques Et Sportives",
+    "Économie",
+    "Génie Mécanique",
+    "Langue Et Littérature Anglaise",
+    "Mathématiques",
+    "Biologie",
+    "Sciences Économiques Et Commerciales Et Sciences De Gestion",
+    "Langue Et Littérature Française",
+    "Langues Et Arts",
+    "Finances Et Comptabilité",
+    "Sciences Islamiques",
+    "Gestion",
+    "Sciences Humaines Et Sociales",
+    "Droit",
+    "Génie Civil Et Hydraulique",
+    "Sciences Sociales",
+    "Sciences Politiques",
+    "Architecture, Urbanisme Et Patrimoine",
+    "Sciences Exactes Et Sciences De La Nature Et De La Vie",
+    "Sciences De L'Information Et De La Communication",
+    "Génie Des Procédés",
+    "Agronomie Et Sciences Vétérinaires",
+    "Philosophie",
+    "Génie Civil",
+    "Langues Étrangères",
+    "Médecine",
+    "Sciences De La Terre Et De L'Univers",
+    "Études Linguistiques",
+    "Sciences De L’Environnement & Sciences Agronomiques et Forestières",
+    "Droit Public",
+    "Sciences Commerciales",
+    "Électronique Et Électrotechnique",
+    "Électronique et Télécommunications",
+    "Droit Privé",
+    "Urbanisme Et Patrimoine",
+    "Architecture",
+    "Technologie",
+    "الكتب المرقمة (1664-1968)",
+    "Sciences Humaines",
+    "Génie Électrotechnique Et Automatique",
+    "Publications Internationales",
+    "Articles (Abstracts)",
+    "Biochimie Et Microbiologie",
+    "Génie Électrique",
+    "Sciences De La Matière",
+    "Sciences De La Nature Et De La Vie",
+    "Droit Des Affaires",
+    "Sécurité Industrielle, Écologie Et Environnement",
+    "Pharmacie",
+    "Sociologie Et Démographie",
+    "Langue Et Littérature Espagnole",
+    "Archéologie",
+    "Droit Pénal",
+    "Thèses De Doctorat",
+    "Géographie Et Aménagement Du Territoire",
+    "Publications Nationales",
+    "Doctorat",
+    "Métallurgie Et Génie Des Matériaux",
+    "Écologie Et Environnement",
+    "Droit Administratif",
+    "Électrotechnique",
+    "Langues Étrangères Et Traduction",
+    "Biotechnologie",
+    "Médecine Dentaire",
+    "Langue Et Culture Amazighes",
+    "Génie Des Matériaux",
+    "Sciences Juridiques Et Administratives",
+    "Communications Internationales",
+    "Cours",
+    "Génie Chimique",
+    "الطب",
+    "Pétrochimie",
+    "Droit Publique",
+    "Mines Et Géologie",
+    "Énergétique",
+    "Sciences Et Technologie Alimentaires Et Nutrition Humaine",
+    "Génie Industriel",
+    "Power",
+    "Forage Des Puits",
+    "Génie Alimentaire",
+    "Contrôle",
+    "Chimie Industrielle",
+    "Productique",
+    "Architecture Et Sciences De La Terre",
+    "Communications Nationales",
+    "Hygiène Et Sécurité Industrielle"
+]
+
+var language = [
+    { id: 'ar', text: 'Arabe' },
+    { id: 'fr', text: 'Français' },
+    { id: 'en', text: 'Anglais' },
+    { id: 'es', text: 'Espagnol' },
+    { id: 'zgh', text: 'Tamazight' },
+    { id: 'it', text: 'Italien' },
+    { id: 'NaN', text: 'Inconnu' },
+    { id: 'ca', text: 'Catalan' },
+    { id: 'al', text: 'Albanais' },
+    { id: 'ru', text: 'Russe' },
+    { id: 'fa', text: 'Persan' },
+    { id: 'ro', text: 'Roumain' },
+    { id: 'ta', text: 'Tamoul' },
+    { id: 'pt', text: 'Portugais' },
+    { id: 'da', text: 'Danois' },
+    { id: 'so', text: 'Somali' },
+    { id: 'cy', text: 'Gallois' },
+    { id: 'de', text: 'Allemand' },
+    { id: 'et', text: 'Estonien' },
+    { id: 'pl', text: 'Polonais' },
+    { id: 'ur', text: 'Ourdou' },
+    { id: 'nl', text: 'Néerlandais' },
+    { id: 'id', text: 'Indonésien' },
+    { id: 'hu', text: 'Hongrois' },
+    { id: 'sw', text: 'Swahili' },
+    { id: 'he', text: 'Hébreu' },
+    { id: 'hr', text: 'Croate' },
+    { id: 'no', text: 'Norvégien' },
+    { id: 'sl', text: 'Slovène' },
+    { id: 'tl', text: 'Tagalog' },
+    { id: 'af', text: 'Afrikaans' },
+    { id: 'lt', text: 'Lituanien' },
+    { id: 'lv', text: 'Letton' },
+    { id: 'sv', text: 'Suédois' }
+    
+];
+
+    $('#depots_universite, #specialite, #type, #langue').select2();
+
+    
+
+    $('#depots_universite').select2({
+        data: universities,
+        placeholder: 'Sélectionnez un ou plusieurs dépots/universités',
+    });
+
+    $('#specialite').select2({
+        data: field,
+        placeholder: 'Sélectionnez une ou plusieurs spécialités',
+    });
+    $('#type').select2({
+        data: typee,
+        placeholder: 'Sélectionnez un ou plusieurs types',
+    });
+    $('#langue').select2({
+        data: language,
+        placeholder: 'Sélectionnez une ou plusieurs langues',
+    });
+</script>
+<script>
+    $(document).ready(function () {
+    // Get the input fields
+    var yearFromInput = $("#from");
+    var yearToInput = $("#to");
+
+    // Create the noUiSlider with primary-slider class
+    var yearSlider = document.getElementById("yearSlider");
+    noUiSlider.create(yearSlider, {
+        start: [1976, 2023], 
+        connect: true, 
+        range: {
+            min: 1950, // Minimum year
+            max: 2023, // Maximum year
+        },
+        
+    });
+
+    // Bind the slider to the input fields
+    yearSlider.noUiSlider.on("update", function (values, handle) {
+        var value = values[handle];
+        if (handle === 0) {
+            yearFromInput.val(Math.round(value));
+        } else {
+            yearToInput.val(Math.round(value));
+        }
+    });
+
+    // Update the slider when the input fields change
+    yearFromInput.change(function () {
+        yearSlider.noUiSlider.set([$(this).val(), null]);
+    });
+
+    yearToInput.change(function () {
+        yearSlider.noUiSlider.set([null, $(this).val()]);
+    });
+});
+
+
+</script>
+{% endblock scripts %}

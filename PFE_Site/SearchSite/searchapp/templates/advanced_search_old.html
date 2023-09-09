@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock head %}
+
+{% block content %}
+<div class="container mt-3 ">
+    <h3 class="text-center text-primary ">Recherche avancée</h3>
+    <form  method="post">
+        <p class="text-muted">Trouvez des résultats avec :</p>
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2" for="normal_q">tous les mots suivants : </label>
+            <div class="col-sm-7">
+                <input class="form-control" type="text" name="normal_q" id="normal_q">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2" for="exact_q">ce mot ou cette expression exact(e) :</label>
+            <div class="col-sm-7">
+                <input class="form-control" type="text" name="exact_q" id="exact_q">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2" for="or_q">l'un des mots suivants :</label>
+            <div class="col-sm-7">
+                <input class="form-control" type="text" name="or_q" id="or_q">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2" for="exclude_q">aucun des mots suivants :</label>
+            <div class="col-sm-7">
+                <input class="form-control" type="text" name="exclude_q" id="exclude_q">
+            </div>
+        </div>
+        <!-- 6. Termes apparaissant dans -->
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2">Termes apparaissant dans :</label>
+            <div class="col-sm-7">
+                <select class="form-select" multiple name="termes[]" id="termes">
+                    <option value="ALL">N'importe où dans le document</option>
+                    <option value="title">le titre</option>
+                    <option value="title">les auteurs</option>
+                    <option value="keywords">les mots-clés</option>
+                    <option value="abstract">le résumé</option>
+                    <option value="body">le contenu</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+        </div>
+        <!-- 1. Année -->
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2">Année :</label>
+            <div class="col-sm-2">
+                <input class="form-control" type="text" name="from" placeholder="De">
+            </div>
+            <div class="col-sm-2">
+                <input class="form-control" type="text" name="to" placeholder="À">
+            </div>
+        </div>
+
+        <!-- 2. Langue -->
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2" for="langue">Langue :</label>
+            <div class="col-sm-7">
+                <select class="form-select" name="langue" id="langue">
+                    <option value="">Tous les langues</option>
+                    <option value="arabe">Arabe</option>
+                    <option value="français">Français</option>
+                    <option value="anglais">Anglais</option>
+                    <option value="anglais">Tamazight</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 3. Spécialité -->
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2">Spécialité :</label>
+            <div class="col-sm-7">
+                <select class="form-select" multiple name="specialite[]" id="specialite">
+                    <option value="1"></option>
+                    <option value="2">Option 2</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+        </div>
+
+        <!-- 4. Type -->
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2">Type :</label>
+            <div class="col-sm-7">
+                <select class="form-select" multiple name="type[]" id="type">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+        </div>
+
+        <!-- 5. Dépots/Université -->
+        <div class="row mb-2">
+            <label class="col-form-label col-sm-2">Dépots/Université :</label>
+            <div class="col-sm-7">
+                <select class="form-select" multiple name="depots_universite[]" id="depots_universite">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+        </div>
+
+        <!-- Submit button -->
+        <div class="row">
+            <div class="col-sm-7 offset-sm-2">
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+            </div>
+        </div>
+    </form>
+</div>
+        
+
+{% endblock content %}
+
+
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+            $('#specialite, #type, #depots_universite, #termes').select2();
+        });
+</script>
+{% endblock scripts %}

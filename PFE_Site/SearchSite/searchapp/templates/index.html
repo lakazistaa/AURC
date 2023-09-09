@@ -25,6 +25,12 @@
  </style>
 {% endblock head %}
 {% block title %}Recherche | AURC{% endblock title %}
+
+{% block video %}
+<source src="{% static 'img/background_video.mp4' %}" type="video/mp4">
+Your browser does not support the video tag.
+{% endblock video %}
+
 {% block content %}
 
 <div class="main-container">
@@ -45,29 +51,5 @@
     </form>
 </div>
 </div>
-
-<!-- <div class="container mt-5 ">
-    <h1 class="display-5 text-center">
-        <span class="text-uppercase hot-pink">A</span>lgerian
-        <span class="text-uppercase hot-pink">U</span>niversity
-        <span class="text-uppercase hot-pink">R</span>epositories
-        <span class="text-uppercase hot-pink">C</span>enter
-    </h1>
-    <div class="d-flex justify-content-center mb-1">
-        <img class="rounded-5" src="{% static 'img/logo.png' %}" width="150" height="150">
-    </div>
-        <form method="post" class="d-flex justify-content-center">
-            <div class="row">
-                <div class="col">
-                    <input type="text" class="form-control border-0 btn-outline-light" name="query" placeholder="Rechercher un document ...">
-                </div>
-            <input type="text"  name="current" value="1" hidden>
-            <div class="col-auto">
-                <button class="btn btn-primary" type="submit">Rechercher</button>
-            </div> 
-            </div>
-        </form>
-</div> -->
-
 
 {% endblock content %}

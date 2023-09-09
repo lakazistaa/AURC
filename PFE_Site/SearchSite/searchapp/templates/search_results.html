@@ -3,17 +3,30 @@
 {% load custom_filters%}
 {% block title %}Resultats | AURC{% endblock title %}
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/Style.css' %}">
+<link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}">
+<link href="{% static 'css/select2.min.css' %}" rel="stylesheet" />
+<style>
+    .modal_span{
+        color:#FB8500;
+    }
+    .modal_title{
+        color:#8ECAE6;
+       
+    }
+    .modal_container {
+        background-color: #FB8500;
+    }
+</style>
 {% endblock head %}
 {% block content %}
 <div class="row mt-2">
     <div class="col">
-        <form id="search_form" method="post">
+        <form id="search_form" method="post" action="{% url 'search_view' %}">
             <div class="row">
                 <div class="col-10">
                     <input type="text" class="form-control rounded-5 px-3" name="query" id="query" value="{{ query}}">
                 </div>
-                <input type="text" id="current" name="current" value="1" hidden>
+                <input type="text"  name="current" value="1" hidden>
                 <div class="col">
                     <button type="submit" class="btn btn-primary rounded-2">Rechercher</button>
                 </div>
@@ -21,31 +34,23 @@
         </form>
     </div>
     <div class="col-auto">
-        <button class="btn btn-outline-info ">Filtrer les résultats</button>
+        <button class="btn btn-outline-info " id="show-filter-modal">Filtrer les résultats</button>
     </div>
 </div>
 <div class="mt-1 px-3">
-    <small><span style="color: blue;">{{meta.page.total_results}}</span> résultats trouvés.</small>
+    <small><span style="color: blue;">{{meta.page.total_results}}</span> résultat(s) trouvés.</small>
 </div>
-<!-- <ul class="list-unstyled mt-2">
-    {% for result in results %}
-        <ul class="list-unstyled">
-            <h4>{{ result.title.snippet |safe}}</h4>
-            <p>Field: {{ result.field.raw |safe}}</p>
-            <p>Keywords: {{ result.keywords.raw|join:", " |safe}}</p>
-            <p>Publication Date: {{ result.publication_date.raw |safe}}</p>
-            <p>Abstract: {{ result.abstract.snippet |safe}}</p>
-            <p>Publisher: {{ result.publisher.raw |safe}}</p>
-            <p>Authors : {{result.authors.raw}}
-            <p><a href="{{ result.url.raw }}" target="_blank">Read more</a></p>
-            <hr>
-        </ul>
-    {% endfor %}
-</ul> -->
 <ul class="list-unstyled mt-2">
     {% for result in results %}
-        <li class="list-unstyled mb-2" style="direction: rtl;">
+        <li class="list-unstyled mb-2 border-1">
             <h3>{{ result.title.snippet |safe}}</h3>
+            <h5>
+                <span class="fw-bold">Auteur(s) : </span>
+                {% for author in result.authors.raw %}
+                    {{ author }}
+                    {% if not forloop.last %}; {% endif %}
+                {% endfor %}
+            </h5>
             <div class="row">
                 <div class="col text-success"><h5 class="fw-bold">{{ result.publication_date.raw |extract_year}}</h5></div>
                 <div class="col mx-2 text-primary"><h6 class="fw-bold">{{ result.publisher.raw |safe}}</h6></div>
@@ -53,15 +58,15 @@
             </div>
             {% if result.language.raw == "ar" %}
             <div style="direction: rtl;">
-                <p><h>Résumé</span> : {{ result.abstract.snippet|safe}}</p>
+                <p><span class="fw-bold">Résumé</span> : {{ result.abstract.snippet|safe}}</p>
             </div>
             {%else%}
-            <p><h>Résumé</span> : {{ result.abstract.snippet|safe}}</p>
+            <p><span class="fw-bold">Résumé</span> : {{ result.abstract.snippet |safe}}</p>
             {% endif %}
             
             
             <div class="text-end">
-                <button class="btn btn-outline-success">Plus de détails</button>
+                <button class="btn btn-outline-success show-details" data-id="{{result.id.raw}}">Plus de détails</button>
             </div>
         </li>
         </li>
@@ -97,15 +102,24 @@
         </li>   
     </ul>
 </nav>
-{% endblock content %}
+<form id="pagination_form" method="post" action="{% url 'pagination_view' %}">
+    <!-- Add fields for passing data to the pagination view -->
+    <input type="hidden" name="full_data" value="{{ full_data }}">
+    <input type="hidden" name="current" id="current" value="1">
+</form>
 
+
+
+  {%endblock content%}
 {% block scripts %}
+<script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+<script src=" {% static '/js/select2.min.js' %}"></script>
   <script>
     $(document).ready(function () {
     // Function to handle form submission with a specific page number
     function submitFormWithPageNumber(pageNumber) {
         $('#current').val(pageNumber); // Set the 'current' input value
-        $('#search_form').submit(); // Submit the form
+        $('#pagination_form').submit(); // Submit the form
     }
 
     // Previous button click event
@@ -139,5 +153,160 @@
         }
     });
   });
+
+  $(".show-details").click(function() {
+    const id = $(this).data('id');  
+    $.ajax({
+        url: "/more_details/", 
+        data: { id: id },
+        dataType: "json",
+        success: function (data) {
+            // Create the modal content with the fetched data
+            const languageCode = data.details[0].language;
+            let languageText = '';
+            if (languageCode === 'ar') {
+                languageText = 'Arabe';
+            } else if (languageCode === 'fr') {
+                languageText = 'français';
+            } else if (languageCode === 'en') {
+                languageText = 'anglais';
+            } else {
+                // Handle other language codes or default case here
+                languageText = 'Unknown'; // Default to 'Unknown' for unrecognized codes
+            }
+            const modalContent = `
+            <h2 class="fw-bold" style="color:#023047;">${data.details[0].title || 'N/A'}</h2>
+            <p><span class="modal_span fw-bold">Auteur(s): </span> ${data.details[0].authors ? data.details[0].authors.join('; ') : 'N/A'}</p>
+            <p><span class="modal_span fw-bold">Université :</span> ${data.details[0].publisher || 'N/A'}</p>
+            <p><span class="modal_span fw-bold">Spécialité :</span> ${data.details[0].field || 'N/A'}</p>
+            <p><span class="modal_span fw-bold">Date de publication :</span> ${data.details[0].publication_date || 'N/A'}</p>
+            <p><span class="modal_span fw-bold">Type :</span> ${data.details[0].type || 'N/A'}</p>
+            <p><span class="modal_span fw-bold">Langue :</span> ${languageText || 'N/A'}</p>
+            <p><span class="modal_span fw-bold">Mots clés :</span> ${data.details[0].keywords ? data.details[0].keywords.join('; ') : 'N/A'}</p>
+            <p><span class="modal_span fw-bold">Résumé :</span> ${data.details[0].abstract || 'N/A'}</p>
+        `;
+        
+            
+            // Display the SweetAlert2 modal
+            Swal.fire({
+                title: '',
+                html: modalContent,
+                showCloseButton: true,
+                width: '80%', 
+                showDenyButton:true,
+                allowOutsideClick : false,
+                showCancelButton:true,
+                confirmButtonText : "Consulter la source",
+                denyButtonText:"Télécharger",
+                cancelButtonText:"Fermer",
+                confirmButtonColor: '#219EBC',
+                cancelButtonColor: '#023047',
+                denyButtonColor: '#FB8500',
+                customClass: {
+                    title: 'modal_title',}
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                    window.open(data.details[0].identifier_uri, '_blank');
+                } else if (result.isDenied) {
+                    
+                    window.open(data.details[0].original_url, '_blank');
+                }
+            });
+            
+        },
+        error: function (error) {
+            console.error('Error fetching data:', error);
+        }
+    });
+
+    });
+// Function to show the SweetAlert2 filter modal with the filtering form
+
+const filterModel = `
+<form id="filter-form">
+            <div class="form-group ">
+                <label for="search-in">Chercher dans :</label>
+                <select id="search-in" class="form-control" multiple>
+                    <option value="titre">Titre</option>
+                    <option value="resume">Résumé</option>
+                    <option value="auteur">Auteur</option>
+                    <option value="mots-cles">Mots-clés</option>
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="annee" class="text-start">Année :</label>
+                <input type="text" id="annee-from" class="form-control" placeholder="DE">
+                <input type="text" id="annee-to" class="form-control" placeholder="À">
+            </div>
+        
+            <div class="form-group">
+                <label for="langue">Langue :</label>
+                <select id="langue" class="form-control">
+                    <option value="francais">Français</option>
+                    <option value="arabe">Arabe</option>
+                    <option value="anglais">Anglais</option>
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="editeur">Editeur :</label>
+                <input type="text" id="editeur" class="form-control">
+            </div>
+        
+            <!-- Add similar form elements for "Spécialité" and "Type" -->
+            
+            <button type="submit" class="btn btn-primary">Appliquer les filtres</button>
+        </form>
+`
+function showFilterModal() {
+    Swal.fire({
+        title: 'Filtrez les résultats',
+        customClass:{
+            container : 'modal_container'
+        },
+        html:filterModel ,
+        showCancelButton: true,
+        confirmButtonText: 'Appliquer les filtres',
+        cancelButtonText: 'Annuler',
+        width: '80%', // Set the width to 80%
+        preConfirm: () => {
+            // Handle form submission and send data to the backend
+            const formData = $('#filter-form').serialize(); // Serialize form data
+
+            // Send formData to the backend using AJAX or form submission
+            // After successful submission, update the button text to "Supprimer les filtres"
+            return fetch('/your-backend-url', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    $('#show-filter-modal').text('Supprimer les filtres');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        },
+        didOpen: () => {
+            // Initialize Select2 for multiselect inputs after the modal is opened
+            $('#search-in').select2({
+                placeholder: "Sélectionnez une ou plusieurs options",
+                allowClear: true,
+                
+            });
+        }
+    });
+}
+
+// Event handler for the "Afficher les filtres" button
+$('#show-filter-modal').click(function() {
+    showFilterModal();
+});
+
+
   </script>
+  
 {% endblock scripts %}

@@ -1,13 +1,14 @@
 import requests
 import json
 
-BASE_URL = ' https://engine.theses-algerie.com'
-API_SEARCH= '/api/as/v1/engines/theses-dz/search.json'
+BASE_URL = ' https://engine.theses-algerie.com/api/as/v1/engines/theses-dz/'
+API_SEARCH= 'search.json'
+API_DETAILS = 'documents'
 
 url=BASE_URL+API_SEARCH
 
 data = {
-  "query": "deghrar said",
+  "query": '',
   "facets": {
     "type": {
       "type": "value",
@@ -15,7 +16,7 @@ data = {
     },
     "authors": {
       "type": "value",
-      "size": 100
+      "size": 250
     },
     "field": {
       "type": "value",
@@ -31,7 +32,7 @@ data = {
     },
     "language": {
       "type": "value",
-      "size": 10
+      "size": 250
     }
   },
   "filters": {
@@ -81,7 +82,9 @@ data = {
             "publisher": "Université Abou EL Kacem Saâdallah - Alger 2"
           }
         ]
-      }
+      },
+      
+      
     ]
   },
   "search_fields": {
@@ -142,18 +145,18 @@ data = {
     }
   },
   "page": {
-    "size": 20,
+    "size": 10,
     "current": 1
   }
 }
-
+params = {"ids[]":1801903693855250}
 
 
 
 
 
 headers = {
-    "Authorization": "Bearer search-tcwftsrg9j5xyaqpgtt2oqqk",
+    "Authorization": "Bearer private-vq7y3ap5tkax1r7wouo2xzfm",
     "Content-Type": "application/json"
 }
 
@@ -164,17 +167,22 @@ headers = {
 
 
 response = requests.post(url,json=data,headers=headers)
+#response = requests.get(url,params=params,headers=headers)
 
 if response.status_code == 200:
+    print(response)
     results = response.json()
-    formatted_results = json.dumps(results, indent=4, ensure_ascii=True)
+    facets = results.get('results', [])
+    
+    formatted_results = json.dumps(facets, indent=4, ensure_ascii=True)
 
     
     # Replace non-ASCII characters with escape codes
     formatted_results = formatted_results.encode('ascii', 'backslashreplace').decode('ascii')
     
-    print(len(results['results']))
-    #print((results['results']))
+    # with open('ff.txt','x') as f :
+    #     f.write(formatted_results)
+    print(formatted_results)
 else:
     print("Request failed with status code:", response.status_code)
     print(response.text)
