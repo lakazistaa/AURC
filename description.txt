@@ -1,0 +1,11 @@
+1) CSS : controler le style et le format d'affichage des elements. voici un exemple (css.png)
+2) html : la structure de la page html. voici un exemple (..) --> je suggère qu'on met rien psk it's obvious.
+3) JavaScript : utilisé pour exécuter des scripts dans le coté du client, pour le contrôle des inputs, l'affichage des popups (modals) ..main goal rendre la page html dynamique.
+..kifkif voici un exemple(js.png)
+4) python : utilisé pour l'implémentation de la logique au niveau du serveur (backend). l'image --- montre les fichiers python appartenant au dossier du projet dans le serveur.
+5) django : utilisé pour garantir le fonctionnement du site, il reçoit les requêtes , y applique un traitement et retourne des résultats. il facilite aussi la réutilisabilité du code html à travers l'héritage garantit par son moteur de template. l'image (templateengine.png)
+montre une page html héritant de la page 'base.html' et qui permet de spécifie le contenu des blocs "head","content" et "scripts". alors que l'image('django_routing) montre le mécanisme de routage de ce site.
+6) postman : utilisé pour tester les réponses du serveur en définissant l'url et la méthode HTTP (GET,POST,PUT ou DELETE)
+ainsi que les champs nécessaire pour chaque requête. l'image (postman) montre le résultat d'envoyer une requête POST à l'url "http:\\localhost:8000" avec un paramêtre "query" dans son corps. (e9ray bien la traduction ..mchi 'jismiha' !!!)
+7)powershell : utilisé pour executer les commandes relatives au lancement et arrêt du serveur ainsi que pour suivre son état (état du serveur). ceci est montré dans l'image(powershell.png).
+8) vs code : utilisé pour le développement du site. l'image (vscode..) montre une vue global de ce IDE.

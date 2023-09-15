@@ -401,7 +401,7 @@ def pagination_view(request):
         print(type(full_data))
         if full_data :
             url=BASE_URL+API_SEARCH
-            current =int(request.POST.get('current'))
+            current =int(request.POST.get('current')) if request.POST.get('current') else 1
             print(current)
             full_data = ast.literal_eval(full_data) 
             full_data['page']['current'] = current

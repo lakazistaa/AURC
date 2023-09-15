@@ -1,11 +1,225 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block head %}
-
+<link rel="stylesheet" href="{% static 'css/cards.css' %}">
 {% endblock head %}
 
 {% block content %}
+<div class="container mt-5">
+    <div class="row">
 
+        <!-- Dépôt Univ-Alger -->
+        <div class="col-md-4">
+            <a href="http://biblio.univ-alger.dz/jspui/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/stores/univ-alger.png' %}" class="card-img-top" alt="Logo de l'Université d'Alger">
+                <div class="card-body">
+                    <h5 class="card-title">Université d'Alger</h5>
+                    <p class="card-text">Dépôt de l'Université d'Alger.</p>
+                    <a href="http://biblio.univ-alger.dz/jspui/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <!-- Dépôt Univ-Alger 2 -->
+        <div class="col-md-4">
+            <a href="http://193.194.83.152:8080/xmlui/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/stores/univ-alger-2.png' %}" class="card-img-top" alt="Logo de l'Université d'Alger 2">
+                <div class="card-body">
+                    <h5 class="card-title">Université d'Alger 2</h5>
+                    <p class="card-text">Dépôt de l'Université d'Alger 2.</p>
+                    <a href="http://193.194.83.152:8080/xmlui/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <!-- Dépôt USTHB -->
+        <div class="col-md-4">
+            <a href="https://repository.usthb.dz/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/stores/usthb.png' %}" class="card-img-top" alt="Logo de l'USTHB">
+                <div class="card-body">
+                    <h5 class="card-title">USTHB</h5>
+                    <p class="card-text">Dépôt de l'Université des Sciences et de la Technologie Houari Boumediene.</p>
+                    <a href="https://repository.usthb.dz/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <!-- Dépôt Univ-Chlef -->
+        <div class="col-md-4">
+            <a href="http://dspace.univ-chlef.dz:8080/jspui/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/stores/univ-chlef.png' %}" class="card-img-top" alt="Logo de l'Université de Chlef">
+                <div class="card-body">
+                    <h5 class="card-title">Université de Chlef</h5>
+                    <p class="card-text">Dépôt de l'Université de Chlef.</p>
+                    <a href="http://dspace.univ-chlef.dz:8080/jspui/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <!-- Dépôt Univ-Mostaghanem -->
+        <div class="col-md-4">
+            <a href="http://e-biblio.univ-mosta.dz/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/stores/univ-mosta.png' %}" class="card-img-top" alt="Logo de l'Université de Mostaghanem">
+                <div class="card-body">
+                    <h5 class="card-title">Université de Mostaghanem</h5>
+                    <p class="card-text">Dépôt de l'Université de Mostaghanem.</p>
+                    <a href="http://e-biblio.univ-mosta.dz/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <!-- Dépôt Univ-Eloued -->
+        <div class="col-md-4">
+            <a href="http://dspace.univ-eloued.dz/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/stores/univ-eloued.png' %}" class="card-img-top" alt="Logo de l'Université d'Eloued">
+                <div class="card-body">
+                    <h5 class="card-title">Université d'Eloued</h5>
+                    <p class="card-text">Dépôt de l'Université d'Eloued.</p>
+                    <a href="http://dspace.univ-eloued.dz/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <!-- Dépôt Univ-Biskra -->
+        <div class="col-md-4">
+            <a href="http://archives.univ-biskra.dz/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/stores/univ-biskra.png' %}" class="card-img-top" alt="Logo de l'Université de Biskra">
+                <div class="card-body">
+                    <h5 class="card-title">Université de Biskra</h5>
+                    <p class="card-text">Dépôt de l'Université de Biskra.</p>
+                    <a href="http://archives.univ-biskra.dz/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <!-- Dépôt Thèses Univ-Biskra -->
+        <div class="col-md-4">
+            <a href="http://thesis.univ-biskra.dz/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/stores/thesis-univ-biskra.png' %}" class="card-img-top" alt="Logo du Dépôt de Thèses de l'Université de Biskra">
+                <div class="card-body">
+                    <h5 class="card-title">Dépôt de Thèses de l'Université de Biskra</h5>
+                    <p class="card-text">Dépôt des thèses de l'Université de Biskra.</p>
+                    <a href="http://thesis.univ-biskra.dz/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <!-- Dépôt Univ-Setif -->
+        <div class="col-md-4">
+            <a href="http://dspace.univ-setif.dz:8888/jspui/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/stores/univ-setif.jpg' %}" class="card-img-top" alt="Logo de l'Université de Sétif">
+                <div class="card-body">
+                    <h5 class="card-title">Université de Sétif</h5>
+                    <p class="card-text">Dépôt de l'Université de Sétif.</p>
+                    <a href="http://dspace.univ-setif.dz:8888/jspui/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <!-- Dépôt Univ-M'sila -->
+        <div class="col-md-4">
+            <a href="http://dspace.univ-msila.dz:8080/xmlui/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/stores/univ-msila.png' %}" class="card-img-top" alt="Logo de l'Université de M'sila">
+                <div class="card-body">
+                    <h5 class="card-title">Université de M'sila</h5>
+                    <p class="card-text">Dépôt de l'Université de M'sila.</p>
+                    <a href="http://dspace.univ-msila.dz:8080/xmlui/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <!-- Dépôt Univ-Tlemcen -->
+        <div class="col-md-4">
+            <a href="http://dspace.univ-tlemcen.dz/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/stores/univ-tlemcen.png' %}" class="card-img-top" alt="Logo de l'Université de Tlemcen">
+                <div class="card-body">
+                    <h5 class="card-title">Université de Tlemcen</h5>
+                    <p class="card-text">Dépôt de l'Université de Tlemcen.</p>
+                    <a href="http://dspace.univ-tlemcen.dz/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <!-- Dépôt UMC -->
+        <div class="col-md-4">
+            <a href="http://depot.umc.edu.dz/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/stores/umc.png' %}" class="card-img-top" alt="Logo de l'UMC">
+                <div class="card-body">
+                    <h5 class="card-title">UMC</h5>
+                    <p class="card-text">Dépôt de l'Université de Constantine 1.</p>
+                    <a href="http://depot.umc.edu.dz/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <!-- Dépôt Univ-Boumerdes -->
+        <div class="col-md-4">
+            <a href="http://dlibrary.univ-boumerdes.dz:8080/jspui" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/stores/univ-boumerdes.png' %}" class="card-img-top" alt="Logo de l'Université de Boumerdes">
+                <div class="card-body">
+                    <h5 class="card-title">Université de Boumerdes</h5>
+                    <p class="card-text">Dépôt de l'Université de Boumerdes.</p>
+                    <a href="http://dlibrary.univ-boumerdes.dz:8080/jspui" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <!-- Dépôt Univ-Bouira -->
+        <div class="col-md-4">
+            <a href="http://dspace.univ-bouira.dz:8080/jspui/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/stores/univ-bouira.png' %}" class="card-img-top" alt="Logo de l'Université de Bouira">
+                <div class="card-body">
+                    <h5 class="card-title">Université de Bouira</h5>
+                    <p class="card-text">Dépôt de l'Université de Bouira.</p>
+                    <a href="http://dspace.univ-bouira.dz:8080/jspui/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <!-- Dépôt Univ-Constantine2 -->
+        <div class="col-md-4">
+            <a href="http://dspace.univ-constantine2.dz/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/stores/univ-constantine2.png' %}" class="card-img-top" alt="Logo de l'Université Constantine 2">
+                <div class="card-body">
+                    <h5 class="card-title">Université Constantine 2</h5>
+                    <p class="card-text">Dépôt de l'Université Constantine 2.</p>
+                    <a href="http://dspace.univ-constantine2.dz/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+
+    </div>
+</div>
 
 {% endblock content %}
 

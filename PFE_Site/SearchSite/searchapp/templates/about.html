@@ -1,15 +1,47 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block head %}
-
+    <title>About APOAR</title>
+    <style>
+        .about_content {
+            font-size: x-large;
+        }
+        .img_about {
+            object-fit: contain;
+        }
+        .container_about {
+            min-height: 79vh; /* Set a minimum height */
+            background-image: url("{% static 'img/illustration-8.png' %}");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center center;
+            display: flex;
+            align-items: center; 
+        }
+    </style>
 {% endblock head %}
 
 {% block content %}
-<h1>khawla himara</h1>
-
+    <div class="container mt-5 container_about">
+        <div class="row mt-5">
+            <div class="col-md-2 text-center d-flex justify-content-center">
+                <img src="{% static 'img/icoo.png' %}" alt="Left Image" class="img-fluid img_about">
+            </div>
+            <div class="col-md-8 text-center about_content">
+                <h1>&nbsp;</h1>
+                <p>
+                    <span class="text-primary fw-bold">APOAR</span> (Plateforme Algérienne pour les Dépôts en Accès Libre) est une ressource inestimable
+                    qui permet aux utilisateurs de <span class="text-dark fw-bold bg-warning">rechercher</span> directement en un seul endroit au lieu de parcourir
+                    chaque dépôt individuellement. Notre mission est de <span class="text-dark fw-bold bg-warning">faciliter</span> l'accès aux ressources
+                    académiques et de <span class="text-dark fw-bold bg-warning">promouvoir</span> la recherche en <span class="text-dark fw-bold bg-warning">Algérie</span>.
+                </p>
+            </div>
+            <div class="col-md-2 text-center d-flex justify-content-center">
+                <img src="{% static 'img/white_logo.png' %}" alt="Right Image"  class="img-fluid img_about">
+            </div>
+        </div>
+    </div>
 {% endblock content %}
-
-
 
 {% block scripts %}
 {% endblock scripts %}

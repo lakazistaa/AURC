@@ -1,11 +1,88 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block head %}
-
+<link rel="stylesheet" href="{% static 'css/cards.css' %}">
 {% endblock head %}
 
 {% block content %}
+<div class="container mt-5 ">
+    <div class="row">
+        <div class="col-md-4">
+            <a href="https://www.sndl.cerist.dz/index.php" target="_blank" class="card-link">
+            <div class="card">
+                <img src="{% static 'img/logo_SNDL.jpg' %}" class="card-img-top" alt="SNDL Logo">
+                <div class="card-body">
+                    <h5 class="card-title">SNDL</h5>
+                    <p class="card-text">Système National de Documentation en ligne.</p>
+                    <a href="https://www.sndl.cerist.dz/index.php" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+        </a>
+        </div>
+        <div class="col-md-4">
+            <a href="https://www.pnst.cerist.dz/" class="card-link" target="_blank">
+             <div class="card">
+                <img src="{% static 'img/logo_PNST.png' %}" class="card-img-top" alt="PNST Logo">
+                <div class="card-body">
+                    <h5 class="card-title">PNST</h5>
+                    <p class="card-text">Portail National de Signalement des Thèses.</p>
+                    <a href="https://www.pnst.cerist.dz/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+             </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="https://www.asjp.cerist.dz/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/logo_ASJP.png' %}" class="card-img-top" alt="ASJP Logo">
+                <div class="card-body">
+                    <h5 class="card-title">ASJP</h5>
+                    <p class="card-text">Platforme des journaux scientifiques algériens.</p>
+                    <a href="https://www.asjp.cerist.dz/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="https://www.ccdz.cerist.dz/index.php" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/logo_CCdz.png' %}" class="card-img-top" alt="CCdz Logo">
+                <div class="card-body">
+                    <h5 class="card-title">CCdz</h5>
+                    <p class="card-text">Catalogue collectif d'algérie.</p>
+                    <a href="https://www.ccdz.cerist.dz/index.php" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
 
+        <div class="col-md-4">
+            <a href="https://www.researchgate.net/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/logo_RG.svg' %}" class="card-img-top" alt="RG Logo">
+                <div class="card-body">
+                    <h5 class="card-title">ResearchGate</h5>
+                    <p class="card-text">Réseau professionnel pour chercheurs et scientifiques.</p>
+                    <a href="https://www.researchgate.net/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+            </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="https://v2.sherpa.ac.uk/opendoar/" class="card-link" target="_blank">
+            <div class="card">
+                <img src="{% static 'img/logo_DOAR.png' %}" class="card-img-top" alt="OpenDOAR Logo">
+                <div class="card-body">
+                    <h5 class="card-title">OpenDOAR</h5>
+                    <p class="card-text">Répertoire mondial de ressources académiques en accès libre.</p>
+                    <a href="https://v2.sherpa.ac.uk/opendoar/" class="btn btn-visit mt-3" target="_blank">Visiter le site</a>
+                </div>
+              </div>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 {% endblock content %}
 

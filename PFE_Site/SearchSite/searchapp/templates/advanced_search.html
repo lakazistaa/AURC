@@ -30,17 +30,16 @@ Your browser does not support the video tag.
         <div class="row mb-2">
             <label class="col-form-label col-sm-2" for="title" >Titre :</label>
             <div class="col-sm-7">
-                <input class="form-control " type="text" name="title" id="title">
+                <input class="form-control " type="text" name="title" id="title" placeholder="Insérez un titre">
             </div>
         </div>
         <div class="row mb-2">
             <label class="col-form-label col-sm-2" for="authors" title="S'il y a plusieurs, séparez-les par des points virgules ( ; ) ">Auteur(s) :</label>
             <div class="col-sm-7">
-                <input class="form-control" type="text" name="authors" id="authors">
+                <input class="form-control" type="text" name="authors" id="authors" placeholder="auteur 1 ; auteur 2 ; auteur 3 ..">
             </div>
         </div>
 
-        
         <!-- Dépots/Université -->
         <div class="row mb-2">
             <label class="col-form-label col-sm-2">Dépots/Université :</label>
@@ -83,7 +82,7 @@ Your browser does not support the video tag.
         <div class="row mb-2">
             <label class="col-form-label col-sm-2" for="keywords" >Mots-clés :</label>
             <div class="col-sm-7">
-                <input class="form-control" type="text" name="keywords" id="keywords">
+                <input class="form-control" type="text" name="keywords" id="keywords" placeholder="mot-clé 1 ; mot-clé 2 ; mot clé 3 ..">
             </div>
         </div>
         <!-- Langue (multiselect) -->
@@ -252,38 +251,6 @@ var language = [
     { id: 'ar', text: 'Arabe' },
     { id: 'fr', text: 'Français' },
     { id: 'en', text: 'Anglais' },
-    { id: 'es', text: 'Espagnol' },
-    { id: 'zgh', text: 'Tamazight' },
-    { id: 'it', text: 'Italien' },
-    { id: 'NaN', text: 'Inconnu' },
-    { id: 'ca', text: 'Catalan' },
-    { id: 'al', text: 'Albanais' },
-    { id: 'ru', text: 'Russe' },
-    { id: 'fa', text: 'Persan' },
-    { id: 'ro', text: 'Roumain' },
-    { id: 'ta', text: 'Tamoul' },
-    { id: 'pt', text: 'Portugais' },
-    { id: 'da', text: 'Danois' },
-    { id: 'so', text: 'Somali' },
-    { id: 'cy', text: 'Gallois' },
-    { id: 'de', text: 'Allemand' },
-    { id: 'et', text: 'Estonien' },
-    { id: 'pl', text: 'Polonais' },
-    { id: 'ur', text: 'Ourdou' },
-    { id: 'nl', text: 'Néerlandais' },
-    { id: 'id', text: 'Indonésien' },
-    { id: 'hu', text: 'Hongrois' },
-    { id: 'sw', text: 'Swahili' },
-    { id: 'he', text: 'Hébreu' },
-    { id: 'hr', text: 'Croate' },
-    { id: 'no', text: 'Norvégien' },
-    { id: 'sl', text: 'Slovène' },
-    { id: 'tl', text: 'Tagalog' },
-    { id: 'af', text: 'Afrikaans' },
-    { id: 'lt', text: 'Lituanien' },
-    { id: 'lv', text: 'Letton' },
-    { id: 'sv', text: 'Suédois' }
-    
 ];
 
     $('#depots_universite, #specialite, #type, #langue').select2();
@@ -345,7 +312,5 @@ var language = [
         yearSlider.noUiSlider.set([null, $(this).val()]);
     });
 });
-
-
 </script>
 {% endblock scripts %}

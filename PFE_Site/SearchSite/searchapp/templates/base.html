@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}AURC{% endblock title %}</title>
-      <link rel="icon" href="{% static 'img/white_aurc.ico' %}" type="image/x-icon">
-      <link rel="shortcut icon" href="{% static 'img/white_aurc.ico' %}" type="image/x-icon">
+    <title>{% block title %}APOAR{% endblock title %}</title>
+      <link rel="icon" href="{% static 'img/icoo.ico' %}" type="image/x-icon">
+      <link rel="shortcut icon" href="{% static 'img/icoo.ico' %}" type="image/x-icon">
      <!-- Font -->
      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">
      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
@@ -37,36 +37,85 @@
       
             <!-- Toggler -->
             <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-              <i class="fe fe-x"></i>
+              <div class="text-end">x</div>
             </button>
       
             <!-- Navigation -->
             <ul class="navbar-nav ms-auto">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarLandings" data-bs-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
-                  Accueil
+
+
+             <li class="nav-item ">
+                <a class="nav-link "   href="{% url 'search_view' %}" >
+                    Accueil
                 </a>
               </li>
+
+            
+
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarLandings" data-bs-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
-                  Dépots
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarPages" data-bs-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
-                  Ressources utiles
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDocumentation" data-bs-toggle="dropdown" href="#" >
-                    À Propos
-                </a>
-              </li>
+                <div class="btn-group">
+                  <a class="btn" href="{% url 'stores' %}">
+                      Dépots
+                  </a>
+                  <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="visually-hidden">Toggle Dropdown</span>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="navbarDepots">
+                    <a class="dropdown-item" href="http://biblio.univ-alger.dz/jspui/" target="_blank">Dépôt Univ-Alger</a>
+                    <a class="dropdown-item" href="http://193.194.83.152:8080/xmlui/" target="_blank">Dépôt Univ-Alger 2</a>
+                    <a class="dropdown-item" href="https://repository.usthb.dz/" target="_blank">Dépôt USTHB</a>
+                    <a class="dropdown-item" href="http://dspace.univ-chlef.dz:8080/jspui/" target="_blank">Dépôt Univ-Chlef</a>
+                    <a class="dropdown-item" href="http://e-biblio.univ-mosta.dz/" target="_blank">Dépôt Univ-Mostaghanem</a>
+                    <a class="dropdown-item" href="http://dspace.univ-eloued.dz/" target="_blank">Dépôt Univ-Eloued</a>
+                    <a class="dropdown-item" href="http://archives.univ-biskra.dz/" target="_blank">Dépôt Univ-Biskra</a>
+                    <a class="dropdown-item" href="http://thesis.univ-biskra.dz/" target="_blank">Dépôt Thèses Univ-Biskra</a>
+                    <a class="dropdown-item" href="http://dspace.univ-setif.dz:8888/jspui/" target="_blank">Dépôt Univ-Setif</a>
+                    <a class="dropdown-item" href="http://dspace.univ-msila.dz:8080/xmlui/" target="_blank">Dépôt Univ-M'sila</a>
+                    <a class="dropdown-item" href="http://dspace.univ-tlemcen.dz/" target="_blank">Dépôt Univ-Tlemcen</a>
+                    <a class="dropdown-item" href="http://depot.umc.edu.dz/" target="_blank">Dépôt UMC</a>
+                    <a class="dropdown-item" href="http://dlibrary.univ-boumerdes.dz:8080/jspui" target="_blank">Dépôt Univ-Boumerdes</a>
+                    <a class="dropdown-item" href="http://dspace.univ-bouira.dz:8080/jspui/" target="_blank">Dépôt Univ-Bouira</a>
+                    <a class="dropdown-item" href="http://dspace.univ-constantine2.dz/" target="_blank">Dépôt Univ-Constantine2</a>
+                  </div>
+                  </div>
+            </li>
+            
+
+
+
+            <li class="nav-item dropdown">
+              <div class="btn-group">
+                  <a class="btn" href="{% url 'ressources' %}">
+                      Ressources utiles
+                  </a>
+                  <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="visually-hidden">Toggle Dropdown</span>
+                  </button>
+                  <div class="dropdown-menu">
+                      <a class="dropdown-item" href="https://www.sndl.cerist.dz/index.php" target="_blank">SNDL</a>
+                      <a class="dropdown-item" href="https://www.pnst.cerist.dz/" target="_blank">PNST</a>
+                      <a class="dropdown-item" href="https://www.asjp.cerist.dz/" target="_blank">ASJP</a>
+                      <a class="dropdown-item" href="https://www.ccdz.cerist.dz/index.php" target="_blank">CCdz</a>
+                      <a class="dropdown-item" href="https://www.researchgate.net/" target="_blank">ResearchGate</a>
+                      <a class="dropdown-item" href="https://v2.sherpa.ac.uk/opendoar/" target="_blank">OpenDOAR</a>
+                  </div>
+              </div>
+            </li>
+          
+
+
+            <li class="nav-item">
+              <a class="nav-link"  href="{% url 'about' %}" >
+                  À Propos
+              </a>
+            </li>
+
+              
             </ul>
       
             <!-- Button -->
             <a class="navbar-btn btn btn-sm btn-primary  ms-auto" href="#">
-              Arabe &nbsp;<img class=" rounded"src="{% static 'img/ar.jpg' %}" width="20" height="20"/>
+              Arabe &nbsp;<img class="rounded"src="{% static 'img/ar.jpg' %}" width="20" height="20"/>
             </a>
       
           </div>
@@ -84,9 +133,9 @@
             {% block content %}
               
             {% endblock content %}
-            <footer class="footer text-center mt-0">
+            <footer class="footer text-center mt-5">
               <div class="container">
-                  <small class="text-muted"> &copy; AURC 2024  - Tous droits reservés.</small>
+                  <small class="text-muted"> &copy; APOAR 2024  - Tous droits reservés.</small>
               </div>
             </footer>
         </div>

@@ -4,8 +4,6 @@ body {
     font-family: 'Kanit', sans-serif;
     
 }
-
-
 .main-container {
     display: flex;
     flex-direction: column;

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load custom_filters%}
-{% block title %}Resultats | AURC{% endblock title %}
+{% block title %}APOAR{% endblock title %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/sweetalert2.min.css' %}">
 <link href="{% static 'css/select2.min.css' %}" rel="stylesheet" />
@@ -172,7 +172,7 @@
                 languageText = 'anglais';
             } else {
                 // Handle other language codes or default case here
-                languageText = 'Unknown'; // Default to 'Unknown' for unrecognized codes
+                languageText = 'Autres'; // Default to 'Unknown' for unrecognized codes
             }
             const modalContent = `
             <h2 class="fw-bold" style="color:#023047;">${data.details[0].title || 'N/A'}</h2>
@@ -209,8 +209,12 @@
                     
                     window.open(data.details[0].identifier_uri, '_blank');
                 } else if (result.isDenied) {
-                    
-                    window.open(data.details[0].original_url, '_blank');
+                
+                    if (data.details[0].original_url !== undefined) {
+                        window.open(data.details[0].original_url, '_blank');
+                    } else {
+                        window.open(data.details[0].url, '_blank');
+                    }
                 }
             });
             

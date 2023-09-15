@@ -1,0 +1,55 @@
+ /* Custom CSS for the card grid */
+ .card {
+    border: none;
+    margin-bottom: 20px;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #666;
+}
+
+.btn-visit {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    
+}
+
+
+
+/* Set fixed dimensions for images */
+.card-img-top {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    transition: filter 0.2s;
+}
+
+/* CSS filter effects on hover */
+.card:hover {
+    transform: scale(1.05); /* Enlarge the card on hover */
+    filter: grayscale(50%) brightness(90%); /* Apply filter effects */
+}
+
+.btn-visit:hover {
+    filter: none;
+    transform: scale(1.05);
+    background-color: blue;
+    color: #fff;
+    
+}
+
+.card-link {
+    text-decoration: none; /* Remove underline */
+}
