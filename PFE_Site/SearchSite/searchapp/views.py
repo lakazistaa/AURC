@@ -4,6 +4,10 @@ from django.views.decorators.csrf import csrf_protect
 from django.http import JsonResponse, HttpResponse
 import json
 import ast
+import threading
+from pyquery import PyQuery as pq
+
+
 
 universities = [
           {
@@ -97,7 +101,8 @@ def search_view(request):
                 "all": [
                   {
                     "any": universities
-                  }
+                  },
+                  {'any': [{'type': 'Mémoire de Master'}, {'type': 'Thèse de Doctorat'}, {'type': 'Mémoire de Magister'}, {'type': 'Autre'}, {'type': 'Mémoire de Licence'}, {'type': 'Non identifié'}, {'type': 'Rapport de Stage Médical'}, {'type': "Mémoire de Fin d'Étude"}, {'type': "Mémoire d'Ingéniorat"}, {'type': 'Article'}]}
                 ]
                 },
                 "search_fields": {
@@ -420,4 +425,157 @@ def pagination_view(request):
             else:
               print("Request failed with status code:", response.status_code)
               print(response.text)
-        
+
+
+
+#-------------------------- core --------------------------------------------------#
+
+def url_creator_g1(base_url, query):
+    return f"{base_url}?query={query}&submit=Go"
+    
+def url_creator_g2(base_url,query):
+    return f"{base_url}/discover?scope=%2F&query={query}&submit=Go"
+
+def url_creator_g3(base_url,query):
+    return f"{base_url}/simple-search?query={query.replace(' ', '+')}"
+    
+def url_creator_g4(base_url,query):
+    return f"{base_url}/cgi/search/simple?q={query}&_action_search=Search&_order=bytitle&basic_srchtype=ALL&_satisfyall=ALL"
+
+site_to_function = {
+    "http://biblio.univ-alger.dz/jspui/": url_creator_g1,
+    "http://dspace.univ-setif.dz:8888/jspui/": url_creator_g1,
+    "https://repository.usthb.dz/": url_creator_g2,
+    "http://dspace.univ-msila.dz:8080/xmlui/": url_creator_g2,
+    "http://dlibrary.univ-boumerdes.dz:8080/jspui": url_creator_g2,
+    "http://depot.umc.edu.dz/": url_creator_g2,
+    "http://193.194.83.152:8080/xmlui/": url_creator_g2,
+    "http://dspace.univ-chlef.dz:8080/jspui/": url_creator_g2,
+    "http://dspace.univ-constantine2.dz/": url_creator_g2,
+    "http://e-biblio.univ-mosta.dz/": url_creator_g2,
+    "http://dspace.univ-eloued.dz/": url_creator_g3,
+    "http://archives.univ-biskra.dz/": url_creator_g3,
+    "http://dspace.univ-tlemcen.dz/": url_creator_g3,
+    "http://dspace.univ-bouira.dz:8080/jspui/": url_creator_g3,
+    "http://thesis.univ-biskra.dz/": url_creator_g4,
+}
+
+sites = [
+    "http://dspace.univ-eloued.dz/",
+    "http://archives.univ-biskra.dz/",
+    "http://thesis.univ-biskra.dz/",
+    "http://dspace.univ-setif.dz:8888/jspui/",
+    "https://repository.usthb.dz/",
+    "http://dspace.univ-msila.dz:8080/xmlui/",
+    "http://193.194.83.152:8080/xmlui/",
+    "http://dspace.univ-tlemcen.dz/",
+    "http://depot.umc.edu.dz/",
+    "http://dlibrary.univ-boumerdes.dz:8080/jspui",
+    "http://dspace.univ-chlef.dz:8080/jspui/",
+    "http://biblio.univ-alger.dz/jspui/",
+    "http://dspace.univ-bouira.dz:8080/jspui/",
+    "http://dspace.univ-constantine2.dz/",
+    "http://e-biblio.univ-mosta.dz/"
+]
+
+def handler_g1(response, results,university):
+    
+    doc = pq(response)
+    result_list = []
+    type = doc('p:contains("collection")').text()
+    item_rows = doc('table.miscTable tr:has(td.headers)')
+    for item_row in item_rows:
+        item_doc = pq(item_row)
+        title = item_doc('td.headers').eq(1).text()
+        author = item_doc('td.headers').eq(2).text()
+        publication_date = item_doc('td.headers').eq(0).text()
+        keywords = item_doc('td.headers').eq(3).text()
+        abstract = item_doc('td.headers').eq(4).text()  
+        result = {
+            'title': title,
+            'author': author,
+            'publication_date': publication_date,
+            'keywords': keywords,
+            'abstract': abstract,
+            'type':type,
+            'university':university
+        }
+        result_list.append(result)
+
+    results.append(result_list) 
+    #get all results 
+    next_page_link = doc('p:contains("next") a')
+    if next_page_link:
+        next_page_url = next_page_link.attr('href')
+        next_page_response = requests.get(next_page_url)  
+        if next_page_response:
+            handler_g1(next_page_response, results)
+
+def handler_g2(url, response_text,university):
+    # Process the response for group 2 URLs here
+    university +=1 
+    response_text +=5
+    print(f"Handling group 2 response for URL: {url}")
+    # Add your processing logic here
+
+def handler_g3(url, response_text):
+    # Process the response for group 3 URLs here
+    print(f"Handling group 3 response for URL: {url}")
+    # Add your processing logic here
+
+def handler_g4(url, response_text):
+    # Process the response for group 4 URLs here
+    print(f"Handling group 4 response for URL: {url}")
+    # Add your processing logic here
+
+site_to_handler = {
+    "http://dspace.univ-eloued.dz/": handler_g2,  
+    "http://archives.univ-biskra.dz/": handler_g2,  
+    "http://thesis.univ-biskra.dz/": handler_g4,  
+    "http://dspace.univ-setif.dz:8888/jspui/": handler_g3,  
+    "https://repository.usthb.dz/": handler_g1,  
+    "http://dspace.univ-msila.dz:8080/xmlui/": handler_g1,  
+    "http://193.194.83.152:8080/xmlui/": handler_g1,  
+    "http://dspace.univ-tlemcen.dz/": handler_g2,  
+    "http://depot.umc.edu.dz/": handler_g1,  
+    "http://dlibrary.univ-boumerdes.dz:8080/jspui": handler_g2,  
+    "http://dspace.univ-chlef.dz:8080/jspui/": handler_g2,  
+    "http://biblio.univ-alger.dz/jspui/": handler_g1,  
+    "http://dspace.univ-bouira.dz:8080/jspui/": handler_g2,  
+    "http://dspace.univ-constantine2.dz/": handler_g2,  
+    "http://e-biblio.univ-mosta.dz/": handler_g1,  
+}
+
+def data_collector(url, results):
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            response_text = response.text
+
+            if url in site_to_handler:
+                handler_function = site_to_handler[url]
+                handler_function(url, response_text, results)
+            else:
+                print(f"Aucun handler for this url: {url}")
+        else:
+            print(f"Request to URL {url} failed with status code {response.status_code}")
+    except Exception as e:
+        print(f"Error while processing URL {url}: {str(e)}")
+
+def simple_search_requester(request):
+    if request.method == 'POST':
+        query = request.POST.get('query')
+        if query :
+            threads = []
+            results = {}
+            for site in sites :
+                url = site_to_function[site](site,query)
+                thread = threading.Thread(target=data_collector,args=(url,results))
+                thread.start()
+                threads.append(thread)
+            # wait for all threads to finish
+            for thread in threads:
+                thread.join()
+
+            return render(request, 'search_results.html', {'results': results,'query':query})
+

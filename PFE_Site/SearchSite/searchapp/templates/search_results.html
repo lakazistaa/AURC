@@ -16,6 +16,28 @@
     .modal_container {
         background-color: #FB8500;
     }
+
+    .card {
+       
+        border: 1px solid primary;
+        transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    }
+
+
+    .card:hover {
+        transform: scale(1.05);
+        
+    }
+
+    
+    .btn.show-details:hover {
+        transform: scale(1.05);
+        transition: transform 0.2s ease-in-out;
+    }
+    .show-details:hover{
+        cursor: pointer;
+    }
+
 </style>
 {% endblock head %}
 {% block content %}
@@ -43,35 +65,37 @@
 <ul class="list-unstyled mt-2">
     {% for result in results %}
         <li class="list-unstyled mb-2 border-1">
-            <h3>{{ result.title.snippet |safe}}</h3>
-            <h5>
-                <span class="fw-bold">Auteur(s) : </span>
-                {% for author in result.authors.raw %}
-                    {{ author }}
-                    {% if not forloop.last %}; {% endif %}
-                {% endfor %}
-            </h5>
-            <div class="row">
-                <div class="col text-success"><h5 class="fw-bold">{{ result.publication_date.raw |extract_year}}</h5></div>
-                <div class="col mx-2 text-primary"><h6 class="fw-bold">{{ result.publisher.raw |safe}}</h6></div>
-                <div class="col mx-2 text-warning"><h6 class="fw-bold">{{ result.field.raw |safe}}</h6></div>
+            <div class="card text-center">
+                <div class="card-body">
+                    <h3 class="show-details" data-id="{{ result.id.raw }}">{{ result.title.snippet | safe }}</h3>
+                    <h5>
+                        <span class="fw-bold">Auteur(s) : </span>
+                        {% for author in result.authors.raw %}
+                            {{ author }}
+                            {% if not forloop.last %}; {% endif %}
+                        {% endfor %}
+                    </h5>
+                    <div class="row">
+                        <div class="col text-success"><h5 class="fw-bold">{{ result.publication_date.raw | extract_year }}</h5></div>
+                        <div class="col mx-2 text-primary"><h6 class="fw-bold">{{ result.publisher.raw | safe }}</h6></div>
+                        <div class="col mx-2 text-warning"><h6 class="fw-bold">{{ result.field.raw | safe }}</h6></div>
+                    </div>
+                    {% if result.language.raw == "ar" %}
+                    <div style="direction: rtl;">
+                        <p><span class="fw-bold">Résumé</span> : {{ result.abstract.snippet | safe }}</p>
+                    </div>
+                    {% else %}
+                    <p><span class="fw-bold">Résumé</span> : {{ result.abstract.snippet | safe }}</p>
+                    {% endif %}
+                    <div class="text-center">
+                        <button class="btn btn-outline-success show-details " data-id="{{ result.id.raw }}">Plus de détails</button>
+                    </div>
+                </div>
             </div>
-            {% if result.language.raw == "ar" %}
-            <div style="direction: rtl;">
-                <p><span class="fw-bold">Résumé</span> : {{ result.abstract.snippet|safe}}</p>
-            </div>
-            {%else%}
-            <p><span class="fw-bold">Résumé</span> : {{ result.abstract.snippet |safe}}</p>
-            {% endif %}
-            
-            
-            <div class="text-end">
-                <button class="btn btn-outline-success show-details" data-id="{{result.id.raw}}">Plus de détails</button>
-            </div>
-        </li>
         </li>
     {% endfor %}
 </ul>
+
 
 <!-- pagination -->
 <nav aria-label="Page navigation " class="d-flex justify-content-center">
@@ -95,7 +119,7 @@
         </li>
 
         <li class="page-item mx-2">
-            <input type="text" class="form-control" id="pageInput" placeholder="Page Number">
+            <input type="text" class="form-control" id="pageInput" placeholder="Insérez un numéro de page">
         </li>
         <li class="page-item">
             <button class="btn btn-warning" id="go">Aller</button>

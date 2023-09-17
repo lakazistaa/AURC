@@ -1,0 +1,10 @@
+alger 1  http://biblio.univ-alger.dz/jspui/simple-search?query=query&submit=Go
+         http://biblio.univ-alger.dz/jspui/simple-search?query=%28%28title%3Atitle_example%29+AND+%28author%3Aauthor_example%29+OR+%28keyword_example%29%29&from_advanced=true&conjunction2=OR&field3=ANY&field2=author&conjunction1=AND&field1=title&query1=title_example&query2=author_example&query3=keyword_example
+
+alger 2  http://193.194.83.152:8080/xmlui/discover?scope=%2F&query=query_example&submit=Go
+
+USTHB https://repository.usthb.dz/discover?scope=123456789%2F9&query=query_example&submit=Go (scope informatique)
+      https://repository.usthb.dz/discover?scope=%2F&query=query_example&submit=Go (scope all)
+
+
+eloued http://dspace.univ-eloued.dz/simple-search?location=%2F&query=query+&rpp=10&sort_by=score&order=desc
